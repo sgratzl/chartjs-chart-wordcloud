@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Venn Diagram Chart</title>
+    <script src="https://unpkg.com/chart.js@3.0.0-alpha.2"></script>
+    <script src="https://unpkg.com/@sgratzl/chartjs-esm-facade@3.0.0-alpha.2"></script>
+    <script src="../dist/chartwordcloud.umd.development.js"></script>
+  </head>
+
+  <body>
+    <div id="container" style="width: 75%;">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      window.onload = () => {
+        const ctx = document.getElementById('canvas').getContext('2d');
+        window.myBar = new Chart(ctx, {
+          type: 'wordCloud',
+          data: data,
+          options: {
+            title: {
+              display: true,
+              text: 'Chart.js Word Cloud',
+            },
+          },
+        });
+      };
+    </script>
+  </body>
+</html>

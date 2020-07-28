@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chart</title>
+  </head>
+  <body>
+    <div id="container" style="width: 75%;">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script defer src="https://unpkg.com/es-module-shims"></script>
+    <script type="importmap-shim">
+      {
+        "imports": {
+          "@sgratzl/chartjs-esm-facade": "https://unpkg.com/@sgratzl/chartjs-esm-facade@3.0.0-alpha.2?module",
+          "chartjs-chart-wordcloud": "../dist/chartwordcloud.esm.js"
+        }
+      }
+    </script>
+    <script type="module-shim">
+      import Chart from 'chart.js';
+      import { WordCloudChart } from 'chartjs-chart-wordcloud';
+
+      const chart = new WordCloudChart(document.getElementById('canvas').getContext('2d'), {
+        data: data,
+        options: {
+          title: {
+            display: true,
+            text: 'Chart.js Word Cloud',
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

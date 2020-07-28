@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "before:init": "yarn clean && yarn test",
+    "before:release": "yarn build && yarn pack",
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+  },
+  "git": {
+    "tagName": "v${version}"
+  },
+  "npm": {
+    "publish": true
+  },
+  "github": {
+    "release": true,
+    "assets": ["dist/*.js", "dist/*.d.ts", "*.tgz"]
+  }
+}
