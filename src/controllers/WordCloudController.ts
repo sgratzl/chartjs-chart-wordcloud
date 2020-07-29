@@ -1,7 +1,6 @@
 import {
   Chart,
   DatasetController,
-  BarController,
   UpdateMode,
   ChartItem,
   ScriptableAndArrayOptions,
@@ -9,11 +8,18 @@ import {
   ICommonHoverOptions,
   IChartDataset,
   IChartConfiguration,
+  toFont,
 } from '@sgratzl/chartjs-esm-facade';
-import { WorldElement, IWorldElementOptions, IWorldElementProps } from '../elements';
+import layout from 'd3-cloud';
+import seedrandom from 'seedrandom';
+import { WordElement, IWordElementOptions, IWordElementProps } from '../elements';
 import patchController from './patchController';
 
-export class WordCloudController extends DatasetController<WorldElement> {
+interface ICloudWord extends IWordElementProps {
+  options: IWordElementOptions;
+}
+
+export class WordCloudController extends DatasetController<WordElement> {
   static readonly id: string = 'wordCloud';
 
   static readonly defaults = {
@@ -31,59 +37,85 @@ export class WordCloudController extends DatasetController<WorldElement> {
         display: false,
       },
     },
-    dataElementType: WorldElement.id,
-    dataElementOptions: BarController.defaults.dataElementOptions,
+    datasets: {
+      fit: true,
+    },
+    dataElementType: WordElement.id,
+    dataElementOptions: ['color', 'family', 'size', 'style', 'weight', 'strokeStyle', 'rotate', 'hoverColor'],
   };
+
+  private readonly wordLayout = layout<ICloudWord>()
+    .text((d) => d.text)
+    .padding((d) => d.options.padding)
+    .rotate((d) => d.options.rotate)
+    .font((d) => d.options.family)
+    .fontSize((d) => d.options.size)
+    .fontStyle((d) => d.options.style)
+    .fontWeight((d) => d.options.weight!);
 
   update(mode: UpdateMode) {
     super.update(mode);
     const meta = this._cachedMeta;
-    const elems = ((meta.data || []) as unknown) as WorldElement[];
+
+    const elems = ((meta.data || []) as unknown) as WordElement[];
     this.updateElements(elems, 0, mode);
   }
 
-  protected computeLayout(size: IBoundingBox): IWordCloudLayout {
-    const nSets = Math.log2(this._cachedMeta.data.length + 1);
-    return layout(nSets, size);
-  }
-
-  updateElements(slices: WorldElement[], start: number, mode: UpdateMode) {
+  updateElements(elems: WordElement[], start: number, mode: UpdateMode) {
+    this.wordLayout.stop();
     const xScale = this._cachedMeta.xScale as { left: number; right: number };
     const yScale = this._cachedMeta.yScale as { top: number; bottom: number };
 
     const w = xScale.right - xScale.left;
     const h = yScale.bottom - yScale.top;
 
-    const l = this.computeLayout({
-      x: xScale.left,
-      y: yScale.top,
-      width: w,
-      height: h,
-    });
-    (this._cachedMeta as any)._layout = l;
-    (this._cachedMeta as any)._layoutFont = (xScale as any)._resolveTickFontOptions(0);
+    const labels = this.chart.data.labels;
 
-    const firstOpts = this.resolveDataElementOptions(start, mode);
-    const sharedOptions = this.getSharedOptions(mode || 'normal', slices[start], firstOpts);
-    const includeOptions = this.includeOptions(mode, sharedOptions);
-
-    for (let i = 0; i < slices.length; i++) {
-      const slice = slices[i];
+    const words: ICloudWord[] = [];
+    for (let i = 0; i < elems.length; i++) {
       const index = start + i;
-      const properties: IWorldElementProps & {
-        options?: IWorldElementOptions;
-      } = Object.assign({}, l.intersections[index]);
-      if (includeOptions) {
-        properties.options = (this.resolveDataElementOptions(index, mode) as unknown) as IWorldElementOptions;
-      }
-      this.updateElement(slice, index, properties as any, mode);
+      const o = (this.resolveDataElementOptions(index, mode) as unknown) as IWordElementOptions;
+      const properties: ICloudWord = {
+        options: Object.assign({}, toFont(o), o),
+        x: this._cachedMeta.xScale!.getValueForPixel(0)!,
+        y: this._cachedMeta.yScale!.getValueForPixel(0)!,
+        width: 10,
+        height: 10,
+        text: labels[index],
+      };
+      words.push(properties);
     }
-    this.updateSharedOptions(sharedOptions, mode);
+    // syncish since no time limit is set
+    this.wordLayout
+      .random(seedrandom(this.chart.id))
+      .words(words)
+      .size([w, h])
+      .on('end', (tags, bounds) => {
+        const wb = bounds[1].x - bounds[0].x;
+        const hb = bounds[1].y - bounds[0].y;
+        const scale = ((this as any)._config as IWordCloudControllerDataset).fit ? Math.min(w / wb, h / hb) : 1;
+        tags.forEach((tag, i) => {
+          tag.options.size = scale * tag.options.size;
+          this.updateElement(
+            elems[i],
+            i,
+            {
+              options: tag.options,
+              x: xScale.left + scale * tag.x + w / 2,
+              y: yScale.top + scale * tag.y + h / 2,
+              width: scale * tag.width,
+              height: scale * tag.height,
+              text: tag.text,
+            },
+            mode
+          );
+        });
+      })
+      .start();
   }
 
   draw() {
-    const elements = meta.data;
-
+    const elements = this._cachedMeta.data;
     const ctx = this.chart.ctx;
     elements.forEach((elem) => elem.draw(ctx));
   }
@@ -91,8 +123,10 @@ export class WordCloudController extends DatasetController<WorldElement> {
 
 export interface IWordCloudControllerDatasetOptions
   extends IControllerDatasetOptions,
-    ScriptableAndArrayOptions<IWorldElementOptions>,
-    ScriptableAndArrayOptions<ICommonHoverOptions> {}
+    ScriptableAndArrayOptions<IWordElementOptions>,
+    ScriptableAndArrayOptions<ICommonHoverOptions> {
+  fit: boolean;
+}
 
 export type IWordCloudControllerDataset<T = number> = IChartDataset<T, IWordCloudControllerDatasetOptions>;
 
@@ -107,6 +141,6 @@ export class WordCloudChart<T = number, L = string> extends Chart<T, L, IWordClo
   static readonly id = WordCloudController.id;
 
   constructor(item: ChartItem, config: Omit<IWordCloudControllerConfiguration<T, L>, 'type'>) {
-    super(item, patchController('wordCloud', config, WordCloudController, WorldElement));
+    super(item, patchController('wordCloud', config, WordCloudController, WordElement));
   }
 }

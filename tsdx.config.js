@@ -14,7 +14,9 @@ module.exports = {
     config.output.globals['chart.js'] = 'Chart';
     config.output.globals['@sgratzl/chartjs-esm-facade'] = 'ChartESMFacade';
     const originalExternal = config.external;
-    const external = Object.keys(pkg.dependencies || {}).concat(Object.keys(pkg.peerDependencies || {}));
+    const external = Object.keys(options.format !== 'umd' ? pkg.dependencies || {} : {}).concat(
+      Object.keys(pkg.peerDependencies || {})
+    );
     config.external = (v) => (originalExternal(v) ? external.includes(v) : false);
 
     const c = config.plugins.findIndex((d) => d.name === 'commonjs');

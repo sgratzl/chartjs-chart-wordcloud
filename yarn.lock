@@ -1803,10 +1803,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/d3-cloud@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@types/d3-cloud@npm:1.2.3"
+  dependencies:
+    "@types/d3": ^3
+  checksum: c9df888546cabcdb85b1b912150077a110d2dbceacd50aff56b570c6e217a670a02c7d1c509f175f41dcdcc4973de752acbb23bb93bc631a589b39413d3e6107
+  languageName: node
+  linkType: hard
+
 "@types/d3-selection@npm:^1.4.2":
   version: 1.4.2
   resolution: "@types/d3-selection@npm:1.4.2"
   checksum: 6a8c573c39fecaed58b77bd43ad8c00e890a686f2079883c7929dea1b5f2629ef40b26fd63fa35fe43a5280e702f21995ec4aa9139ffb766a81bdf0c19af332f
+  languageName: node
+  linkType: hard
+
+"@types/d3@npm:^3":
+  version: 3.5.43
+  resolution: "@types/d3@npm:3.5.43"
+  checksum: 91daf21fb22a90132b0752b15406c0fd491ccc08c754095a5a1301e2c163ec663235e1e563baff5096f7459f66a6d65e5d9887d898e52c1a51e66409a8b7f7c4
   languageName: node
   linkType: hard
 
@@ -2004,10 +2020,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/seedrandom@npm:^2.4.28":
+  version: 2.4.28
+  resolution: "@types/seedrandom@npm:2.4.28"
+  checksum: 4e56ed5ff9b6e2a73fc9804b7b388648347f73a7ea15512c4e3b59860831a4e791da0f35422b1b3326e5c1ffcafc48902fa9f3bf3fa4f0c242d7e5f1a0ec426e
+  languageName: node
+  linkType: hard
+
 "@types/stack-utils@npm:^1.0.1":
   version: 1.0.1
   resolution: "@types/stack-utils@npm:1.0.1"
   checksum: 59738e4b71b233b438a6ecb9faaf577d6f02afec4ea093d5ad3c10e78cb7096ab32648a2c2017c6c2e6c6853498aa783643a2c6b859c4a75f6750e7b37ae8bae
+  languageName: node
+  linkType: hard
+
+"@types/wordcloud@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@types/wordcloud@npm:1.1.2"
+  checksum: 0ed4315e0f1b1906966ecae3235fe26278718589b9034adaa6422b1ada640bfee1d27f36587bb94bb48c5cfd56b40c22482f8bcc9b5de63542dcb0efdf23489f
   languageName: node
   linkType: hard
 
@@ -3381,15 +3411,19 @@ __metadata:
   dependencies:
     "@rollup/plugin-commonjs": ^14.0.0
     "@sgratzl/chartjs-esm-facade": ^3.0.0-alpha.20
+    "@types/d3-cloud": ^1.2.3
     "@types/d3-selection": ^1.4.2
     "@types/jest": ^26.0.7
     "@types/jest-image-snapshot": ^3.1.0
     "@types/node": ^14.0.26
+    "@types/seedrandom": ^2.4.28
+    "@types/wordcloud": ^1.1.2
     "@typescript-eslint/eslint-plugin": ^3.7.0
     "@typescript-eslint/parser": ^3.7.0
     "@yarnpkg/pnpify": ^2.1.0
     canvas: ^2.6.1
     chart.js: ^3.0.0-alpha.2
+    d3-cloud: ^1.2.5
     eslint: ^7.5.0
     eslint-config-prettier: ^6.11.0
     eslint-config-react-app: ^5.2.1
@@ -3408,10 +3442,12 @@ __metadata:
     rollup-plugin-cleanup: ^3.1.1
     rollup-plugin-dts: ^1.4.9
     rollup-plugin-pnp-resolve: ^2.0.0
+    seedrandom: ^3.0.5
     tsdx: ~0.13.2
     tslib: ^2.0.0
     typedoc: ^0.17.8
     typescript: ^3.9.7
+    wordcloud: ^1.1.1
   peerDependencies:
     "@sgratzl/chartjs-esm-facade": ^3.0.0-alpha.20
     chart.js: ^3.0.0-alpha.2
@@ -3798,6 +3834,22 @@ __metadata:
   dependencies:
     cssom: ~0.3.6
   checksum: a778180d2f5eef44742b7083997a0ad6e59eee016724ceac4d6229e48842d3c5ebbb55dc02c555f793bdc486254f6eef8d2049c1815e8fc74514e3eb827d49ec
+  languageName: node
+  linkType: hard
+
+"d3-cloud@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "d3-cloud@npm:1.2.5"
+  dependencies:
+    d3-dispatch: ^1.0.3
+  checksum: 36b21d8266233e9121e0b5f6a856b3d51391e3c2e673e25a3b3223fb28c36f7cc017b57e3c3677790b6442d498673a2065758873fd229e4b9dc5a2174842a131
+  languageName: node
+  linkType: hard
+
+"d3-dispatch@npm:^1.0.3":
+  version: 1.0.6
+  resolution: "d3-dispatch@npm:1.0.6"
+  checksum: 2bec4b1395b167974d8fc6b2d5b2a843efd90c377e1749202cf2241557a0bfc7e5eaa465de0f39b5d977d2ae60c5ac982d2f043482bbfb49df53028b53769c98
   languageName: node
   linkType: hard
 
@@ -9804,6 +9856,13 @@ resolve@1.15.1:
   languageName: node
   linkType: hard
 
+"seedrandom@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "seedrandom@npm:3.0.5"
+  checksum: 8ca859bd79cc6a4367783f19d802ef4651f957da388f162f45c4e32c4d4df8cb55649b25b9d66cf73f905d920640b8da9ae04418feb40b41c9c7c767a1c49691
+  languageName: node
+  linkType: hard
+
 "semver-diff@npm:^3.1.1":
   version: 3.1.1
   resolution: "semver-diff@npm:3.1.1"
@@ -11389,6 +11448,13 @@ typescript@^3.9.7:
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 6526abd75d4409c76d1989cf2fbf6080b903db29824be3d17d0a0b8f6221486c76a021174eda2616cf311199787983c34bae3c5e7b51d2ad7476f2066cddb75a
+  languageName: node
+  linkType: hard
+
+"wordcloud@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "wordcloud@npm:1.1.1"
+  checksum: 93e501819023e25df4c303bfa7d8fb047944a19f14c8a6ad03399b54e88b82a05a5208f6a0e249658896a91bc9187851b85e9a4e04ee266763110a1097818106
   languageName: node
   linkType: hard
 

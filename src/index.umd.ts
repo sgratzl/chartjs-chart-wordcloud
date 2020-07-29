@@ -1,8 +1,8 @@
 import { WordCloudController } from './controllers';
 import { registry } from '@sgratzl/chartjs-esm-facade';
-import { WorldElement } from './elements';
+import { WordElement } from './elements';
 
 export * from '.';
 
 registry.addControllers(WordCloudController);
-registry.addElements(WorldElement);
+registry.addElements(WordElement);

@@ -96,5 +96,13 @@
     "prepare": "npm run build",
     "release": "release-it --disable-metrics --npm.skipChecks",
     "release:pre": "release-it --disable-metrics --npm.skipChecks --preRelease=alpha --npm.tag=next"
+  },
+  "dependencies": {
+    "@types/d3-cloud": "^1.2.3",
+    "@types/seedrandom": "^2.4.28",
+    "@types/wordcloud": "^1.1.2",
+    "d3-cloud": "^1.2.5",
+    "seedrandom": "^3.0.5",
+    "wordcloud": "^1.1.1"
   }
 }

@@ -2,17 +2,27 @@
 <html>
   <head>
     <title>Venn Diagram Chart</title>
-    <script src="https://unpkg.com/chart.js@3.0.0-alpha.2"></script>
+    <script src="https://unpkg.com/chart.js@3.0.0-alpha.2/dist/chart.js"></script>
     <script src="https://unpkg.com/@sgratzl/chartjs-esm-facade@3.0.0-alpha.2"></script>
     <script src="../dist/chartwordcloud.umd.development.js"></script>
   </head>
 
   <body>
-    <div id="container" style="width: 75%;">
+    <div id="container" style="width: 75%; border: 1px solid black;">
       <canvas id="canvas"></canvas>
     </div>
     <script>
       window.onload = () => {
+        const words = ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'];
+        const data = {
+          labels: words,
+          datasets: [
+            {
+              label: '',
+              data: words.map(() => 10 + Math.random() * 90),
+            },
+          ],
+        };
         const ctx = document.getElementById('canvas').getContext('2d');
         window.myBar = new Chart(ctx, {
           type: 'wordCloud',
