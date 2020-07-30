@@ -2034,13 +2034,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wordcloud@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@types/wordcloud@npm:1.1.2"
-  checksum: 0ed4315e0f1b1906966ecae3235fe26278718589b9034adaa6422b1ada640bfee1d27f36587bb94bb48c5cfd56b40c22482f8bcc9b5de63542dcb0efdf23489f
-  languageName: node
-  linkType: hard
-
 "@types/yargs-parser@npm:*":
   version: 15.0.0
   resolution: "@types/yargs-parser@npm:15.0.0"
@@ -3417,7 +3410,6 @@ __metadata:
     "@types/jest-image-snapshot": ^3.1.0
     "@types/node": ^14.0.26
     "@types/seedrandom": ^2.4.28
-    "@types/wordcloud": ^1.1.2
     "@typescript-eslint/eslint-plugin": ^3.7.0
     "@typescript-eslint/parser": ^3.7.0
     "@yarnpkg/pnpify": ^2.1.0
@@ -3447,7 +3439,6 @@ __metadata:
     tslib: ^2.0.0
     typedoc: ^0.17.8
     typescript: ^3.9.7
-    wordcloud: ^1.1.1
   peerDependencies:
     "@sgratzl/chartjs-esm-facade": ^3.0.0-alpha.20
     chart.js: ^3.0.0-alpha.2
@@ -11448,13 +11439,6 @@ typescript@^3.9.7:
   version: 1.2.3
   resolution: "word-wrap@npm:1.2.3"
   checksum: 6526abd75d4409c76d1989cf2fbf6080b903db29824be3d17d0a0b8f6221486c76a021174eda2616cf311199787983c34bae3c5e7b51d2ad7476f2066cddb75a
-  languageName: node
-  linkType: hard
-
-"wordcloud@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "wordcloud@npm:1.1.1"
-  checksum: 93e501819023e25df4c303bfa7d8fb047944a19f14c8a6ad03399b54e88b82a05a5208f6a0e249658896a91bc9187851b85e9a4e04ee266763110a1097818106
   languageName: node
   linkType: hard
 

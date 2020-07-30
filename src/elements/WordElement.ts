@@ -1,12 +1,4 @@
-import {
-  Element,
-  IVisualElement,
-  defaults,
-  IFontSpec,
-  toFont,
-  ScriptableAndArrayOptions,
-  getHoverColor,
-} from '@sgratzl/chartjs-esm-facade';
+import { Element, IFontSpec, IVisualElement, ScriptableAndArrayOptions, toFont } from '@sgratzl/chartjs-esm-facade';
 
 export interface IWordElementOptions extends IFontSpec {
   rotate: number;
@@ -42,7 +34,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
       const v = ctx.dataPoint.y;
       return v;
     },
-    hoverColor: getHoverColor(defaults.color),
+    hoverWeight: '500',
   } as Partial<ScriptableAndArrayOptions<IWordElementOptions>>;
 
   static readonly defaultRoutes = {

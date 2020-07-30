@@ -2,23 +2,21 @@
 
 [![NPM Package][npm-image]][npm-url] [![Github Actions][github-actions-image]][github-actions-url]
 
-Chart.js module for charting venn diagrams with up to five sets. Adding new chart type: `venn` and `euler`.
+Chart.js module for charting word or tag clouds. Adding new chart type: `wordCloud`.
 
 **Works only with Chart.js >= 3.0.0-alpha.2**
 
-![Sports Venn Diagram](https://user-images.githubusercontent.com/4129778/84571515-f32f9100-ad93-11ea-9354-039411eef43a.png)
-
-![five sets](https://user-images.githubusercontent.com/4129778/86374498-eca28400-bc84-11ea-8494-ea7d9cd11781.png)
+![word cloud example](https://user-images.githubusercontent.com/4129778/88903326-cbb55a80-d253-11ea-9fb3-ecca1e1ef67f.png)
 
 ## Install
 
 ```bash
-npm install --save chart.js@next @sgratzl/chartjs-esm-facade@next chartjs-chart-wordcloud
+npm install --save chart.js@next @sgratzl/chartjs-esm-facade@next chartjs-chart-wordcloud@next
 ```
 
 ## Usage
 
-see [Samples](https://github.com/upsetjs/chartjs-chart-wordcloud/tree/master/samples) on Github
+see [Samples](https://github.com/sgratzl/chartjs-chart-wordcloud/tree/master/samples) on Github
 
 or at this [![Open in CodePen][codepen]](https://codepen.io/sgratzl/pen/TODO)
 
@@ -29,12 +27,22 @@ or at this [![Open in CodePen][codepen]](https://codepen.io/sgratzl/pen/TODO)
 ```ts
 const config = {
   type: 'wordCloud',
-  data: ,
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: 'A',
+        data: [],
+      },
+    ],
+  },
   options: {},
 };
 ```
 
 ### Styling of elements
+
+TODO
 
 ## ESM and Tree Shaking
 
@@ -44,9 +52,9 @@ Variant A:
 
 ```js
 import { Chart } from 'chart.js';
-import { WordCloudController, WorldElement } from 'chartjs-chart-wordcloud';
+import { WordCloudController, WordElement } from 'chartjs-chart-wordcloud';
 
-Chart.register(WordCloudController, WorldElement);
+Chart.register(WordCloudController, WordElement);
 ...
 
 new Chart(ctx, {
@@ -92,6 +100,6 @@ yarn release:pre
 [mit-url]: https://opensource.org/licenses/MIT
 [npm-image]: https://badge.fury.io/js/chartjs-chart-wordcloud.svg
 [npm-url]: https://npmjs.org/package/chartjs-chart-wordcloud
-[github-actions-image]: https://github.com/upsetjs/chartjs-chart-wordcloud/workflows/ci/badge.svg
-[github-actions-url]: https://github.com/upsetjs/chartjs-chart-wordcloud/actions
+[github-actions-image]: https://github.com/sgratzl/chartjs-chart-wordcloud/workflows/ci/badge.svg
+[github-actions-url]: https://github.com/sgratzl/chartjs-chart-wordcloud/actions
 [codepen]: https://img.shields.io/badge/CodePen-open-blue?logo=codepen
