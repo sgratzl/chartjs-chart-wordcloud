@@ -1,30 +1,28 @@
 /// <reference types="jest" />
 import { WordCloudController, IWordCloudControllerConfiguration } from './WordCloudController';
-import { extractSets, ISet } from '../data';
 import { registry } from '@sgratzl/chartjs-esm-facade';
-import { WorldElement } from '../elements';
+import { WordElement } from '../elements';
 import matchChart from '../__tests__/matchChart';
 
 describe('venn', () => {
   beforeAll(() => {
     registry.addControllers(WordCloudController);
-    registry.addElements(WorldElement);
+    registry.addElements(WordElement);
   });
   test('default', () => {
-    const data = extractSets(
-      [
-        { label: '', values: ['alex', 'casey', 'drew', 'hunter'] },
-        { label: '', values: ['casey', 'drew', 'jade'] },
-        { label: '', values: ['drew', 'glen', 'jade'] },
+    const words = ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'];
+    const data = {
+      labels: words,
+      datasets: [
+        {
+          label: '',
+          data: words.map(() => 10 + Math.random() * 90),
+        },
       ],
+    };
+    return matchChart<number, string, IWordCloudControllerConfiguration<number, string>>(
       {
-        label: 'Sports',
-      }
-    );
-    expect(data.labels).toHaveLength(7);
-    return matchChart<ISet<string>, string, IWordCloudControllerConfiguration<ISet<string>, string>>(
-      {
-        type: WordCloudController.id as 'venn',
+        type: WordCloudController.id,
         data,
         options: {},
       },
