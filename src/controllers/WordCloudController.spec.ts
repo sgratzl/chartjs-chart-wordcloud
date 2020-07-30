@@ -4,7 +4,7 @@ import { registry } from '@sgratzl/chartjs-esm-facade';
 import { WordElement } from '../elements';
 import matchChart from '../__tests__/matchChart';
 
-describe('venn', () => {
+describe('default', () => {
   beforeAll(() => {
     registry.addControllers(WordCloudController);
     registry.addElements(WordElement);
@@ -20,7 +20,7 @@ describe('venn', () => {
         },
       ],
     };
-    return matchChart<number, string, IWordCloudControllerConfiguration<number, string>>(
+    matchChart<number, string, IWordCloudControllerConfiguration<number, string>>(
       {
         type: WordCloudController.id,
         data,
