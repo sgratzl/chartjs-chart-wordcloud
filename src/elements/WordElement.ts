@@ -1,15 +1,38 @@
 import { Element, IFontSpec, IVisualElement, ScriptableAndArrayOptions, toFont } from '@sgratzl/chartjs-esm-facade';
 
 export interface IWordElementOptions extends IFontSpec {
+  /**
+   * rotation of the word
+   * @default undefined then it will be randomly derived given the other constraints
+   */
   rotate: number;
+  /**
+   * number of rotation steps between min and max rotation
+   * @default 2
+   */
   rotationSteps: number;
+  /**
+   * angle in degree for the min rotation
+   * @default -90
+   */
   minRotation: number;
+  /**
+   * angle in degree for the max rotation
+   * @default 0
+   */
   maxRotation: number;
+  /**
+   * padding around each word while doing the layout
+   * @default 1
+   */
   padding: number;
 }
 
 export interface IWordElementHoverOptions {
   hoverColor: string;
+  hoverSize: number;
+  hoverStyle: string;
+  hoverWeight: string;
 }
 
 export interface IWordElementProps {
@@ -34,7 +57,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
       const v = ctx.dataPoint.y;
       return v;
     },
-    hoverWeight: '500',
+    hoverColor: '#ababab',
   } as Partial<ScriptableAndArrayOptions<IWordElementOptions>>;
 
   static readonly defaultRoutes = {

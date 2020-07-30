@@ -1,4 +1,4 @@
-# Chart.js Venn and Euler Diagram Chart
+# Chart.js Word Clouds
 
 [![NPM Package][npm-image]][npm-url] [![Github Actions][github-actions-image]][github-actions-url]
 
@@ -28,11 +28,13 @@ or at this [![Open in CodePen][codepen]](https://codepen.io/sgratzl/pen/TODO)
 const config = {
   type: 'wordCloud',
   data: {
-    labels: [],
+    // text
+    labels: ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'],
     datasets: [
       {
-        label: 'A',
-        data: [],
+        label: 'DS',
+        // size in pixel
+        data: [90, 80, 70, 60, 50, 40, 30, 20, 10],
       },
     ],
   },

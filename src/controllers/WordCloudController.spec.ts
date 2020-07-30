@@ -16,7 +16,7 @@ describe('venn', () => {
       datasets: [
         {
           label: '',
-          data: words.map(() => 10 + Math.random() * 90),
+          data: words.map((_, i) => 10 + (i / words.length) * 90),
         },
       ],
     };

@@ -185,6 +185,10 @@ export interface IWordCloudControllerDatasetOptions
   extends IControllerDatasetOptions,
     ScriptableAndArrayOptions<IWordElementOptions>,
     ScriptableAndArrayOptions<ICommonHoverOptions> {
+  /**
+   * whether to fit the word cloud to the map, by scaling to the actual bounds
+   * @default true
+   */
   fit: boolean;
 }
 
