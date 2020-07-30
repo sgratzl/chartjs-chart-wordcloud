@@ -59,6 +59,9 @@ export class WordCloudController extends DatasetController<WordElement> {
       'weight',
       'strokeStyle',
       'rotate',
+      'minRotation',
+      'maxRotation',
+      'rotationSteps',
       'hoverColor',
       'hoverSize',
       'hoverWeight',
@@ -75,8 +78,11 @@ export class WordCloudController extends DatasetController<WordElement> {
     .fontStyle((d) => d.options.style)
     .fontWeight((d) => d.options.weight!);
 
+  rand: () => number = Math.random;
+
   update(mode: UpdateMode) {
     super.update(mode);
+    this.rand = seedrandom(this.chart.id);
     const meta = this._cachedMeta;
 
     const elems = ((meta.data || []) as unknown) as WordElement[];
@@ -84,7 +90,6 @@ export class WordCloudController extends DatasetController<WordElement> {
   }
 
   updateElements(elems: WordElement[], start: number, mode: UpdateMode) {
-    const rand = seedrandom(this.chart.id);
     this.wordLayout.stop();
     const xScale = this._cachedMeta.xScale as { left: number; right: number };
     const yScale = this._cachedMeta.yScale as { top: number; bottom: number };
@@ -98,7 +103,7 @@ export class WordCloudController extends DatasetController<WordElement> {
       const index = start + i;
       const o = (this.resolveDataElementOptions(index, mode) as unknown) as IWordElementOptions;
       if (o.rotate == null) {
-        o.rotate = (Math.floor(rand() * 6) - 3) * 30;
+        o.rotate = WordElement.computeRotation(o, this.rand);
       }
       const properties: ICloudWord = {
         options: Object.assign({}, toFont(o), o),
@@ -119,7 +124,7 @@ export class WordCloudController extends DatasetController<WordElement> {
       return;
     }
     // syncish since no time limit is set
-    this.wordLayout.random(rand).words(words);
+    this.wordLayout.random(this.rand).words(words);
 
     const run = (factor = 1, tries = 3): void => {
       this.wordLayout

@@ -10,6 +10,9 @@ import {
 
 export interface IWordElementOptions extends IFontSpec {
   rotate: number;
+  rotationSteps: number;
+  minRotation: number;
+  maxRotation: number;
   padding: number;
 }
 
@@ -30,6 +33,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   static readonly id = 'word';
   static readonly defaults = /* #__PURE__ */ {
     // rotate: 0,
+    minRotation: -90,
+    maxRotation: 0,
+    rotationSteps: 2,
     padding: 1,
     weight: 'normal',
     size: (ctx) => {
@@ -43,6 +49,18 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     color: 'font.color',
     family: 'font.family',
   };
+
+  static computeRotation(o: IWordElementOptions, rnd: () => number) {
+    if (o.rotationSteps <= 1) {
+      return 0;
+    }
+    if (o.minRotation === o.maxRotation) {
+      return o.minRotation;
+    }
+    const base = Math.min(o.rotationSteps, Math.floor(rnd() * o.rotationSteps)) / (o.rotationSteps - 1);
+    const range = o.maxRotation - o.minRotation;
+    return o.minRotation + base * range;
+  }
 
   inRange(mouseX: number, mouseY: number) {
     const p = this.getProps(['x', 'y', 'width', 'height', 'scale']);
