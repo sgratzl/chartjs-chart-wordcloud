@@ -44,7 +44,15 @@ const config = {
 
 ### Styling of elements
 
-TODO
+A word has the basic FontSpec styling options (family, color, ...). In addition it has several options regarding rotating the text.
+
+Controller options:
+
+https://github.com/sgratzl/chartjs-chart-wordcloud/blob/14ac8327c2209c0d8f89fdd6cd86d2b2d7daedce/src/controllers/WordCloudController.ts#L184-L193
+
+Word element options:
+
+https://github.com/sgratzl/chartjs-chart-wordcloud/blob/14ac8327c2209c0d8f89fdd6cd86d2b2d7daedce/src/elements/WordElement.ts#L3-L29
 
 ## ESM and Tree Shaking
 
