@@ -8,9 +8,9 @@
     "url": "https://www.sgratzl.com"
   },
   "license": "MIT",
-  "homepage": "https://github.com/upsetjs/chartjs-chart-wordcloud",
+  "homepage": "https://github.com/sgratzl/chartjs-chart-wordcloud",
   "bugs": {
-    "url": "https://github.com/upsetjs/chartjs-chart-wordcloud/issues"
+    "url": "https://github.com/sgratzl/chartjs-chart-wordcloud/issues"
   },
   "keywords": [
     "chart.js",
@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/upsetjs/chartjs-chart-wordcloud.git"
+    "url": "https://github.com/sgratzl/chartjs-chart-wordcloud.git"
   },
   "module": "dist/chartwordcloud.esm.js",
   "main": "dist/chartwordcloud.umd.development.js",
