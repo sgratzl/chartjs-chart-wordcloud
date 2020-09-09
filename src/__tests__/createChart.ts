@@ -1,7 +1,7 @@
 /// <reference types="jest" />
 /// <reference types="node" />
 
-import { Chart, IChartConfiguration, defaults } from '@sgratzl/chartjs-esm-facade';
+import { Chart, IChartConfiguration, defaults } from 'chart.js';
 import { toMatchImageSnapshot, MatchImageSnapshotOptions } from 'jest-image-snapshot';
 
 expect.extend({ toMatchImageSnapshot });
@@ -21,16 +21,16 @@ export async function expectMatchSnapshot(canvas: HTMLCanvasElement) {
   expect(image).toMatchImageSnapshot();
 }
 
-export default function matchChart<
+export default function createChart<
   T = number,
   L = string,
   C extends IChartConfiguration<string, T, L> = IChartConfiguration<string, T, L>
->(config: C, width = 300, height = 300) {
+>(config: C, width = 800, height = 600) {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   defaults.font.family = 'Courier New';
-  // defaults.font.color = 'transparent';
+  defaults.font.color = 'transparent';
   config.options = Object.assign(
     {
       responsive: false,
@@ -46,16 +46,17 @@ export default function matchChart<
   );
   const ctx = canvas.getContext('2d')!;
 
-  const chart = new Chart<T, L, C>(ctx, config);
+  const t = new Chart<T, L, C>(ctx, config);
 
   return {
-    chart,
+    chart: t,
+    canvas,
     ctx,
-    toMatchImageSnapshot: async (matchOptions: MatchImageSnapshotOptions = {}) => {
+    async toMatchImageSnapshot(options?: MatchImageSnapshotOptions) {
       await new Promise((resolve) => setTimeout(resolve, 100));
 
       const image = await toBuffer(canvas);
-      expect(image).toMatchImageSnapshot(matchOptions);
+      expect(image).toMatchImageSnapshot(options);
     },
   };
 }

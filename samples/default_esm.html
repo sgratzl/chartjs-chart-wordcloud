@@ -4,17 +4,17 @@
     <title>Chart</title>
   </head>
   <body>
-    <div id="container" style="width: 75%;">
+    <div id="container" style="width: 75%">
       <canvas id="canvas"></canvas>
     </div>
     <script defer src="https://unpkg.com/es-module-shims"></script>
     <script type="importmap-shim">
       {
         "imports": {
-          "@sgratzl/chartjs-esm-facade": "https://unpkg.com/@sgratzl/chartjs-esm-facade@3.0.0-alpha.2?module",
+          "chart.js": "https://unpkg.com/chart.js@3.0.0-beta?module",
           "d3-cloud": "https://unpkg.com/d3-cloud?module",
           "seedrandom": "https://unpkg.com/seedrandom?module",
-          "chartjs-chart-wordcloud": "../dist/chartwordcloud.esm.js"
+          "chartjs-chart-wordcloud": "../build/index.esm.js"
         }
       }
     </script>

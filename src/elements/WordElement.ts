@@ -1,4 +1,5 @@
-import { Element, IFontSpec, IVisualElement, ScriptableAndArrayOptions, toFont } from '@sgratzl/chartjs-esm-facade';
+import { Element, IFontSpec, IVisualElement, ScriptableAndArrayOptions } from 'chart.js';
+import { toFont } from '../../chartjs-helpers/options';
 
 export interface IWordElementOptions extends IFontSpec {
   /**

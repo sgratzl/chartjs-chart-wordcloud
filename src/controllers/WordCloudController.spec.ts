@@ -1,8 +1,8 @@
 /// <reference types="jest" />
 import { WordCloudController, IWordCloudControllerConfiguration } from './WordCloudController';
-import { registry } from '@sgratzl/chartjs-esm-facade';
+import { registry } from 'chart.js';
 import { WordElement } from '../elements';
-import matchChart from '../__tests__/matchChart';
+import createChart from '../__tests__/createChart';
 
 describe('default', () => {
   beforeAll(() => {
@@ -20,7 +20,7 @@ describe('default', () => {
         },
       ],
     };
-    matchChart<number, string, IWordCloudControllerConfiguration<number, string>>(
+    const chart = createChart<number, string, IWordCloudControllerConfiguration<number, string>>(
       {
         type: WordCloudController.id,
         data,
@@ -29,5 +29,7 @@ describe('default', () => {
       1000,
       500
     );
+
+    return chart.toMatchImageSnapshot();
   });
 });

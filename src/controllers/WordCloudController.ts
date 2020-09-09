@@ -8,12 +8,20 @@ import {
   ICommonHoverOptions,
   IChartDataset,
   IChartConfiguration,
-  toFont,
-} from '@sgratzl/chartjs-esm-facade';
+} from 'chart.js';
+import { toFont } from '../../chartjs-helpers/options';
 import layout from 'd3-cloud';
-import seedrandom from 'seedrandom';
 import { WordElement, IWordElementOptions, IWordElementProps } from '../elements';
 import patchController from './patchController';
+
+function rnd(seed: string | number = Date.now()) {
+  // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
+  let s = typeof seed === 'number' ? seed : Array.from(seed).reduce((acc, v) => acc + v.charCodeAt(0), 0);
+  return () => {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
 
 interface ICloudWord extends IWordElementProps {
   options: IWordElementOptions;
@@ -82,7 +90,7 @@ export class WordCloudController extends DatasetController<WordElement> {
 
   update(mode: UpdateMode) {
     super.update(mode);
-    this.rand = seedrandom(this.chart.id);
+    this.rand = rnd(this.chart.id);
     const meta = this._cachedMeta;
 
     const elems = ((meta.data || []) as unknown) as WordElement[];

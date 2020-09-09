@@ -11,7 +11,7 @@ Chart.js module for charting word or tag clouds. Adding new chart type: `wordClo
 ## Install
 
 ```bash
-npm install --save chart.js@next @sgratzl/chartjs-esm-facade@next chartjs-chart-wordcloud@next
+npm install --save chart.js@next chartjs-chart-wordcloud@next
 ```
 
 ## Usage
