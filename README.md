@@ -20,11 +20,6 @@ see [Samples](https://github.com/sgratzl/chartjs-chart-wordcloud/tree/master/sam
 
 or at this [![Open in CodePen][codepen]](https://codepen.io/sgratzl/pen/WNwzYgy)
 
-<iframe height="500" style="width: 100%;" scrolling="no" title="Chart.js Word Cloud" src="https://codepen.io/sgratzl/embed/WNwzYgy?height=479&theme-id=light&default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href='https://codepen.io/sgratzl/pen/WNwzYgy'>Chart.js Word Cloud</a> by Samuel Gratzl
-  (<a href='https://codepen.io/sgratzl'>@sgratzl</a>) on <a href='https://codepen.io'>CodePen</a>.
-</iframe>
-
 ## Word Cloud
 
 ### Data Structure
