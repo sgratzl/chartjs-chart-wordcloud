@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-import { WordCloudController, IWordCloudControllerConfiguration } from './WordCloudController';
+import { WordCloudController } from './WordCloudController';
 import { registry } from 'chart.js';
 import { WordElement } from '../elements';
 import createChart from '../__tests__/createChart';
@@ -20,7 +20,7 @@ describe('default', () => {
         },
       ],
     };
-    const chart = createChart<number, string, IWordCloudControllerConfiguration<number, string>>(
+    const chart = createChart(
       {
         type: WordCloudController.id,
         data,

@@ -6,10 +6,11 @@ import {
   ScriptableAndArrayOptions,
   IControllerDatasetOptions,
   ICommonHoverOptions,
-  IChartDataset,
   IChartConfiguration,
+  ICartesianScaleTypeRegistry,
+  ICoreChartOptions,
 } from 'chart.js';
-import { toFont } from '../../chartjs-helpers/options';
+import { toFont } from 'chart.js/helpers';
 import layout from 'd3-cloud';
 import { WordElement, IWordElementOptions, IWordElementProps } from '../elements';
 import patchController from './patchController';
@@ -94,10 +95,10 @@ export class WordCloudController extends DatasetController<WordElement> {
     const meta = this._cachedMeta;
 
     const elems = ((meta.data || []) as unknown) as WordElement[];
-    this.updateElements(elems, 0, mode);
+    this.updateElements(elems, 0, elems.length, mode);
   }
 
-  updateElements(elems: WordElement[], start: number, mode: UpdateMode) {
+  updateElements(elems: WordElement[], start: number, count: number, mode: UpdateMode) {
     this.wordLayout.stop();
     const xScale = this._cachedMeta.xScale as { left: number; right: number };
     const yScale = this._cachedMeta.yScale as { top: number; bottom: number };
@@ -107,9 +108,8 @@ export class WordCloudController extends DatasetController<WordElement> {
     const labels = this.chart.data.labels;
 
     const words: ICloudWord[] = [];
-    for (let i = 0; i < elems.length; i++) {
-      const index = start + i;
-      const o = (this.resolveDataElementOptions(index, mode) as unknown) as IWordElementOptions;
+    for (let i = start; i < start + count; i++) {
+      const o = (this.resolveDataElementOptions(i, mode) as unknown) as IWordElementOptions;
       if (o.rotate == null) {
         o.rotate = WordElement.computeRotation(o, this.rand);
       }
@@ -120,8 +120,8 @@ export class WordCloudController extends DatasetController<WordElement> {
         width: 10,
         height: 10,
         scale: 1,
-        index,
-        text: labels[index],
+        index: i,
+        text: labels[i],
       };
       words.push(properties);
     }
@@ -148,7 +148,9 @@ export class WordCloudController extends DatasetController<WordElement> {
           }
           const wb = bounds[1].x - bounds[0].x;
           const hb = bounds[1].y - bounds[0].y;
-          const scale = ((this as any)._config as IWordCloudControllerDataset).fit ? Math.min(w / wb, h / hb) : 1;
+          const scale = ((this as any)._config as IWordCloudControllerDatasetOptions).fit
+            ? Math.min(w / wb, h / hb)
+            : 1;
           const indices = new Set(labels.map((_, i) => i));
           tags.forEach((tag) => {
             indices.delete(tag.index);
@@ -200,19 +202,24 @@ export interface IWordCloudControllerDatasetOptions
   fit: boolean;
 }
 
-export type IWordCloudControllerDataset<T = number> = IChartDataset<T, IWordCloudControllerDatasetOptions>;
+declare module 'chart.js' {
+  enum ChartTypeEnum {
+    wordCloud = 'wordCloud',
+  }
+  interface IChartTypeRegistry {
+    wordCloud: {
+      chartOptions: ICoreChartOptions;
+      datasetOptions: IWordCloudControllerDatasetOptions;
+      defaultDataPoint: number[];
+      scales: keyof ICartesianScaleTypeRegistry;
+    };
+  }
+}
 
-export type IWordCloudControllerConfiguration<T = number, L = string> = IChartConfiguration<
-  'wordCloud',
-  T,
-  L,
-  IWordCloudControllerDataset<T>
->;
+export class WordCloudChart<DATA extends unknown[] = number[], LABEL = string> extends Chart<'wordCloud', DATA, LABEL> {
+  static id = WordCloudController.id;
 
-export class WordCloudChart<T = number, L = string> extends Chart<T, L, IWordCloudControllerConfiguration<T, L>> {
-  static readonly id = WordCloudController.id;
-
-  constructor(item: ChartItem, config: Omit<IWordCloudControllerConfiguration<T, L>, 'type'>) {
+  constructor(item: ChartItem, config: Omit<IChartConfiguration<'wordCloud', DATA, LABEL>, 'type'>) {
     super(item, patchController('wordCloud', config, WordCloudController, WordElement));
   }
 }

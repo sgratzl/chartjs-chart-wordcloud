@@ -1,5 +1,5 @@
 import { Element, IFontSpec, IVisualElement, ScriptableAndArrayOptions } from 'chart.js';
-import { toFont } from '../../chartjs-helpers/options';
+import { toFont } from 'chart.js/helpers';
 
 export interface IWordElementOptions extends IFontSpec {
   /**

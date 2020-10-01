@@ -35,6 +35,7 @@ export default (options) => {
     banner,
     globals: {
       'chart.js': 'Chart',
+      'chart.js/helpers': 'Chart.helpers'
     },
   };
 
@@ -73,13 +74,6 @@ export default (options) => {
         file: pkg.main,
         format: 'cjs',
       },
-      plugins: [
-        replace({
-          'chartjs-helpers/core': 'chartjs-helpers/core/index.js',
-          'chartjs-helpers/options': 'chartjs-helpers/options/index.js',
-        }),
-        ...base.plugins,
-      ],
     },
     (buildFormat('umd') || buildFormat('umd-min')) && {
       ...base,
@@ -100,13 +94,6 @@ export default (options) => {
         },
       ].filter(Boolean),
       external: (v) => isPeerDependency(v),
-      plugins: [
-        replace({
-          'chartjs-helpers/core': 'chartjs-helpers/core/index.js',
-          'chartjs-helpers/options': 'chartjs-helpers/options/index.js',
-        }),
-        ...base.plugins,
-      ],
     },
     buildFormat('types') && {
       ...base,
