@@ -4,11 +4,11 @@ import {
   UpdateMode,
   ChartItem,
   ScriptableAndArrayOptions,
-  IControllerDatasetOptions,
-  ICommonHoverOptions,
-  IChartConfiguration,
-  ICartesianScaleTypeRegistry,
-  ICoreChartOptions,
+  ControllerDatasetOptions,
+  CommonHoverOptions,
+  ChartConfiguration,
+  CartesianScaleTypeRegistry,
+  CoreChartOptions,
 } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 import layout from 'd3-cloud';
@@ -192,9 +192,9 @@ export class WordCloudController extends DatasetController<WordElement> {
 }
 
 export interface IWordCloudControllerDatasetOptions
-  extends IControllerDatasetOptions,
+  extends ControllerDatasetOptions,
     ScriptableAndArrayOptions<IWordElementOptions>,
-    ScriptableAndArrayOptions<ICommonHoverOptions> {
+    ScriptableAndArrayOptions<CommonHoverOptions> {
   /**
    * whether to fit the word cloud to the map, by scaling to the actual bounds
    * @default true
@@ -203,15 +203,12 @@ export interface IWordCloudControllerDatasetOptions
 }
 
 declare module 'chart.js' {
-  enum ChartTypeEnum {
-    wordCloud = 'wordCloud',
-  }
-  interface IChartTypeRegistry {
+  interface ChartTypeRegistry {
     wordCloud: {
-      chartOptions: ICoreChartOptions;
+      chartOptions: CoreChartOptions;
       datasetOptions: IWordCloudControllerDatasetOptions;
       defaultDataPoint: number[];
-      scales: keyof ICartesianScaleTypeRegistry;
+      scales: keyof CartesianScaleTypeRegistry;
     };
   }
 }
@@ -219,7 +216,7 @@ declare module 'chart.js' {
 export class WordCloudChart<DATA extends unknown[] = number[], LABEL = string> extends Chart<'wordCloud', DATA, LABEL> {
   static id = WordCloudController.id;
 
-  constructor(item: ChartItem, config: Omit<IChartConfiguration<'wordCloud', DATA, LABEL>, 'type'>) {
+  constructor(item: ChartItem, config: Omit<ChartConfiguration<'wordCloud', DATA, LABEL>, 'type'>) {
     super(item, patchController('wordCloud', config, WordCloudController, WordElement));
   }
 }

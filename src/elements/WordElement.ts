@@ -1,7 +1,7 @@
-import { Element, IFontSpec, IVisualElement, ScriptableAndArrayOptions } from 'chart.js';
+import { Element, FontSpec, VisualElement, ScriptableAndArrayOptions } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 
-export interface IWordElementOptions extends IFontSpec {
+export interface IWordElementOptions extends FontSpec {
   /**
    * rotation of the word
    * @default undefined then it will be randomly derived given the other constraints
@@ -45,7 +45,7 @@ export interface IWordElementProps {
   text: string;
 }
 
-export class WordElement extends Element<IWordElementProps, IWordElementOptions> implements IVisualElement {
+export class WordElement extends Element<IWordElementProps, IWordElementOptions> implements VisualElement {
   static readonly id = 'word';
   static readonly defaults = /* #__PURE__ */ {
     // rotate: 0,
