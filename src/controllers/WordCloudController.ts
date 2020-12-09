@@ -105,7 +105,7 @@ export class WordCloudController extends DatasetController<WordElement> {
 
     const w = xScale.right - xScale.left;
     const h = yScale.bottom - yScale.top;
-    const labels = this.chart.data.labels;
+    const labels = this.chart.data.labels as string[];
 
     const words: ICloudWord[] = [];
     for (let i = start; i < start + count; i++) {
@@ -185,7 +185,7 @@ export class WordCloudController extends DatasetController<WordElement> {
 
   getLabelAndValue(index: number) {
     const r = super.getLabelAndValue(index);
-    const labels = this.chart.data.labels;
+    const labels = this.chart.data.labels as string[];
     r.label = labels[index];
     return r;
   }

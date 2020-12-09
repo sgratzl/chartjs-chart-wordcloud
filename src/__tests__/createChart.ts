@@ -30,16 +30,18 @@ export default function createChart<
   canvas.width = width;
   canvas.height = height;
   defaults.font.family = 'Courier New';
-  defaults.font.color = 'transparent';
+  defaults.color = 'transparent';
   config.options = Object.assign(
     {
       responsive: false,
       animation: false,
-      legend: {
-        display: false,
-      },
-      title: {
-        display: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: false,
+        },
       },
     },
     config.options || {}

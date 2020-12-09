@@ -62,7 +62,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   } as Partial<ScriptableAndArrayOptions<IWordElementOptions>>;
 
   static readonly defaultRoutes = {
-    color: 'font.color',
+    color: 'color',
     family: 'font.family',
   };
 
@@ -117,7 +117,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
       })
     );
     ctx.font = f.string;
-    ctx.fillStyle = f.color;
+    ctx.fillStyle = options.color;
     ctx.textAlign = 'center';
     // ctx.textBaseline = 'top';
     ctx.translate(props.x, props.y);
