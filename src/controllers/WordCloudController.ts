@@ -9,6 +9,7 @@ import {
   ChartConfiguration,
   CartesianScaleTypeRegistry,
   CoreChartOptions,
+  ScriptableContext,
 } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 import layout from 'd3-cloud';
@@ -193,8 +194,8 @@ export class WordCloudController extends DatasetController<WordElement> {
 
 export interface IWordCloudControllerDatasetOptions
   extends ControllerDatasetOptions,
-    ScriptableAndArrayOptions<IWordElementOptions>,
-    ScriptableAndArrayOptions<CommonHoverOptions> {
+    ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext>,
+    ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext> {
   /**
    * whether to fit the word cloud to the map, by scaling to the actual bounds
    * @default true

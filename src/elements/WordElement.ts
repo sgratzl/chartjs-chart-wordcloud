@@ -1,7 +1,9 @@
-import { Element, FontSpec, VisualElement, ScriptableAndArrayOptions } from 'chart.js';
+import { Element, FontSpec, VisualElement, ScriptableAndArrayOptions, ScriptableContext } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 
 export interface IWordElementOptions extends FontSpec {
+  color: string;
+  strokeStyle: string;
   /**
    * rotation of the word
    * @default undefined then it will be randomly derived given the other constraints
@@ -59,7 +61,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
       return v;
     },
     hoverColor: '#ababab',
-  } as Partial<ScriptableAndArrayOptions<IWordElementOptions>>;
+  } as Partial<ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext>>;
 
   static readonly defaultRoutes = {
     color: 'color',
@@ -123,8 +125,8 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     ctx.translate(props.x, props.y);
     // ctx.strokeRect(-props.width / 2, -props.height / 2, props.width, props.height);
     ctx.rotate((options.rotate / 180) * Math.PI);
-    if (f.strokeStyle) {
-      ctx.strokeStyle = f.strokeStyle;
+    if (options.strokeStyle) {
+      ctx.strokeStyle = options.strokeStyle;
       ctx.strokeText(props.text, 0, 0);
     }
     ctx.fillText(props.text, 0, 0);
