@@ -90,7 +90,7 @@ export class WordCloudController extends DatasetController<WordElement> {
 
   rand: () => number = Math.random;
 
-  update(mode: UpdateMode) {
+  update(mode: UpdateMode): void {
     super.update(mode);
     this.rand = rnd(this.chart.id);
     const meta = this._cachedMeta;
@@ -99,7 +99,7 @@ export class WordCloudController extends DatasetController<WordElement> {
     this.updateElements(elems, 0, elems.length, mode);
   }
 
-  updateElements(elems: WordElement[], start: number, count: number, mode: UpdateMode) {
+  updateElements(elems: WordElement[], start: number, count: number, mode: UpdateMode): void {
     this.wordLayout.stop();
     const xScale = this._cachedMeta.xScale as { left: number; right: number };
     const yScale = this._cachedMeta.yScale as { top: number; bottom: number };
@@ -108,13 +108,13 @@ export class WordCloudController extends DatasetController<WordElement> {
     const h = yScale.bottom - yScale.top;
     const labels = this.chart.data.labels as string[];
 
-    const words: ICloudWord[] = [];
+    const words: (ICloudWord & Record<string, unknown>)[] = [];
     for (let i = start; i < start + count; i++) {
       const o = (this.resolveDataElementOptions(i, mode) as unknown) as IWordElementOptions;
       if (o.rotate == null) {
         o.rotate = WordElement.computeRotation(o, this.rand);
       }
-      const properties: ICloudWord = {
+      const properties: ICloudWord & Record<string, unknown> = {
         options: Object.assign({}, toFont(o), o),
         x: this._cachedMeta.xScale!.getPixelForDecimal(0.5)!,
         y: this._cachedMeta.yScale!.getPixelForDecimal(0.5)!,
@@ -149,9 +149,9 @@ export class WordCloudController extends DatasetController<WordElement> {
           }
           const wb = bounds[1].x - bounds[0].x;
           const hb = bounds[1].y - bounds[0].y;
-          const scale = ((this as any)._config as IWordCloudControllerDatasetOptions).fit
-            ? Math.min(w / wb, h / hb)
-            : 1;
+
+          const dsOptions = (this as any).options as IWordCloudControllerDatasetOptions;
+          const scale = dsOptions.fit ? Math.min(w / wb, h / hb) : 1;
           const indices = new Set(labels.map((_, i) => i));
           tags.forEach((tag) => {
             indices.delete(tag.index);
@@ -178,13 +178,13 @@ export class WordCloudController extends DatasetController<WordElement> {
     run();
   }
 
-  draw() {
+  draw(): void {
     const elements = this._cachedMeta.data;
     const ctx = this.chart.ctx;
     elements.forEach((elem) => elem.draw(ctx));
   }
 
-  getLabelAndValue(index: number) {
+  getLabelAndValue(index: number): { label: string; value: any } {
     const r = super.getLabelAndValue(index);
     const labels = this.chart.data.labels as string[];
     r.label = labels[index];

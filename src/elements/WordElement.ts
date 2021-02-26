@@ -57,7 +57,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     padding: 1,
     weight: 'normal',
     size: (ctx) => {
-      const v = ctx.dataPoint.y;
+      const v = ((ctx.parsed as unknown) as { y: number }).y;
       return v;
     },
     hoverColor: '#ababab',
@@ -68,7 +68,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     family: 'font.family',
   };
 
-  static computeRotation(o: IWordElementOptions, rnd: () => number) {
+  static computeRotation(o: IWordElementOptions, rnd: () => number): number {
     if (o.rotationSteps <= 1) {
       return 0;
     }
@@ -80,7 +80,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     return o.minRotation + base * range;
   }
 
-  inRange(mouseX: number, mouseY: number) {
+  inRange(mouseX: number, mouseY: number): boolean {
     const p = this.getProps(['x', 'y', 'width', 'height', 'scale']);
     if (p.scale <= 0) {
       return false;
@@ -90,23 +90,23 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     return x >= p.x - p.width / 2 && x <= p.x + p.width / 2 && y >= p.y - p.height / 2 && y <= p.y + p.height / 2;
   }
 
-  inXRange(mouseX: number) {
+  inXRange(mouseX: number): boolean {
     return this.inRange(mouseX, Number.NaN);
   }
 
-  inYRange(mouseY: number) {
+  inYRange(mouseY: number): boolean {
     return this.inRange(Number.NaN, mouseY);
   }
 
-  getCenterPoint() {
+  getCenterPoint(): { x: number; y: number } {
     return this.getProps(['x', 'y']);
   }
 
-  tooltipPosition() {
+  tooltipPosition(): { x: number; y: number } {
     return this.getCenterPoint();
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D): void {
     const options = this.options;
     const props = this.getProps(['x', 'y', 'width', 'height', 'text', 'scale']);
     if (props.scale <= 0) {

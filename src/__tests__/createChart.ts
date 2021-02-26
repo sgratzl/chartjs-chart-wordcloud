@@ -16,11 +16,12 @@ function toBuffer(canvas: HTMLCanvasElement) {
   });
 }
 
-export async function expectMatchSnapshot(canvas: HTMLCanvasElement) {
+export async function expectMatchSnapshot(canvas: HTMLCanvasElement): Promise<void> {
   const image = await toBuffer(canvas);
   expect(image).toMatchImageSnapshot();
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function createChart<
   TYPE extends ChartType,
   DATA extends unknown[] = DefaultDataPoint<TYPE>,
