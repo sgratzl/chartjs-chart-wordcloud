@@ -24,7 +24,7 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: yarn lint
-      - run: yarn test
+      - run: yarn test -u
       - uses: actions/upload-artifact@v2
         with:
           name: diff outputs
