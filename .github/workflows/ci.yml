@@ -24,8 +24,9 @@ jobs:
       - run: yarn install
       - run: yarn build
       - run: yarn lint
-      - run: yarn test -u
+      - run: yarn test
       - uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: diff outputs
-          path: src/**/*.png
+          path: src/**/__diff_output__/*.png

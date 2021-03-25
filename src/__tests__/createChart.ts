@@ -39,7 +39,7 @@ export default function createChart<
   canvas.width = width;
   canvas.height = height;
   defaults.font.family = 'Courier New';
-  // defaults.color = 'transparent';
+  defaults.color = 'transparent';
   // eslint-disable-next-line no-param-reassign
   config.options = {
     responsive: false,
