@@ -35,6 +35,22 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   static readonly id = 'wordCloud';
 
   static readonly defaults = {
+    datasets: {
+      fit: true,
+      animation: {
+        colors: {
+          properties: ['color', 'strokeStyle'],
+        },
+        numbers: {
+          properties: ['x', 'y', 'size', 'rotate'],
+        },
+      },
+    },
+    maintainAspectRatio: false,
+    dataElementType: WordElement.id,
+  };
+
+  static readonly overrides = {
     scales: {
       x: {
         type: 'linear',
@@ -49,35 +65,6 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
         display: false,
       },
     },
-    datasets: {
-      fit: true,
-      animation: {
-        colors: {
-          properties: ['color', 'strokeStyle'],
-        },
-        numbers: {
-          properties: ['x', 'y', 'size', 'rotate'],
-        },
-      },
-    },
-    maintainAspectRatio: false,
-    dataElementType: WordElement.id,
-    dataElementOptions: [
-      'color',
-      'family',
-      'size',
-      'style',
-      'weight',
-      'strokeStyle',
-      'rotate',
-      'minRotation',
-      'maxRotation',
-      'rotationSteps',
-      'hoverColor',
-      'hoverSize',
-      'hoverWeight',
-      'hoverStyle',
-    ],
   };
 
   private readonly wordLayout = layout<ICloudWord>()
