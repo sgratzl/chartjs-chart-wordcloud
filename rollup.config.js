@@ -35,7 +35,7 @@ export default (options) => {
     banner,
     globals: {
       'chart.js': 'Chart',
-      'chart.js/helpers': 'Chart.helpers'
+      'chart.js/helpers': 'Chart.helpers',
     },
   };
 
@@ -47,11 +47,12 @@ export default (options) => {
       resolve(),
       commonjs(),
       replace({
-        values: {        // eslint-disable-next-line no-undef
+        preventAssignment: true,
+        values: {
+          // eslint-disable-next-line no-undef
           'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) || 'production',
           __VERSION__: JSON.stringify(pkg.version),
         },
-        preventAssignment: true,
       }),
       cleanup({
         comments: ['some', 'ts', 'ts3s'],

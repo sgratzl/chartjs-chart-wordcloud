@@ -49,7 +49,8 @@ export interface IWordElementProps {
 
 export class WordElement extends Element<IWordElementProps, IWordElementOptions> implements VisualElement {
   static readonly id = 'word';
-  static readonly defaults = /* #__PURE__ */ {
+
+  static readonly defaults: any = /* #__PURE__ */ {
     // rotate: 0,
     minRotation: -90,
     maxRotation: 0,
@@ -61,7 +62,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
       return v;
     },
     hoverColor: '#ababab',
-  } as Partial<ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext>>;
+  } as Partial<ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext<'wordCloud'>>>;
 
   static readonly defaultRoutes = {
     color: 'color',
@@ -107,17 +108,13 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    const options = this.options;
+    const { options } = this;
     const props = this.getProps(['x', 'y', 'width', 'height', 'text', 'scale']);
     if (props.scale <= 0) {
       return;
     }
     ctx.save();
-    const f = toFont(
-      Object.assign({}, options, {
-        size: options.size * props.scale,
-      })
-    );
+    const f = toFont({ ...options, size: options.size * props.scale });
     ctx.font = f.string;
     ctx.fillStyle = options.color;
     ctx.textAlign = 'center';

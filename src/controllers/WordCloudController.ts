@@ -10,6 +10,7 @@ import {
   CartesianScaleTypeRegistry,
   CoreChartOptions,
   ScriptableContext,
+  VisualElement,
 } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 import layout from 'd3-cloud';
@@ -30,7 +31,7 @@ interface ICloudWord extends IWordElementProps {
   index: number;
 }
 
-export class WordCloudController extends DatasetController<WordElement> {
+export class WordCloudController extends DatasetController<'wordCloud', WordElement> {
   static readonly id = 'wordCloud';
 
   static readonly defaults = {
@@ -86,7 +87,7 @@ export class WordCloudController extends DatasetController<WordElement> {
     .font((d) => d.options.family)
     .fontSize((d) => d.options.size)
     .fontStyle((d) => d.options.style)
-    .fontWeight((d) => d.options.weight!);
+    .fontWeight((d) => d.options.weight ?? 1);
 
   rand: () => number = Math.random;
 
@@ -109,15 +110,15 @@ export class WordCloudController extends DatasetController<WordElement> {
     const labels = this.chart.data.labels as string[];
 
     const words: (ICloudWord & Record<string, unknown>)[] = [];
-    for (let i = start; i < start + count; i++) {
+    for (let i = start; i < start + count; i += 1) {
       const o = (this.resolveDataElementOptions(i, mode) as unknown) as IWordElementOptions;
       if (o.rotate == null) {
         o.rotate = WordElement.computeRotation(o, this.rand);
       }
       const properties: ICloudWord & Record<string, unknown> = {
-        options: Object.assign({}, toFont(o), o),
-        x: this._cachedMeta.xScale!.getPixelForDecimal(0.5)!,
-        y: this._cachedMeta.yScale!.getPixelForDecimal(0.5)!,
+        options: { ...toFont(o), ...o },
+        x: this._cachedMeta.xScale?.getPixelForDecimal(0.5) ?? 0,
+        y: this._cachedMeta.yScale?.getPixelForDecimal(0.5) ?? 0,
         width: 10,
         height: 10,
         scale: 1,
@@ -142,10 +143,11 @@ export class WordCloudController extends DatasetController<WordElement> {
           if (tags.length < labels.length) {
             if (tries > 0) {
               // try again with a factor of 1.2
-              return run(factor * 1.2, tries - 1);
-            } else {
-              console.warn('cannot fit all text elements in three tries');
+              run(factor * 1.2, tries - 1);
+              return;
             }
+            // eslint-disable-next-line no-console
+            console.warn('cannot fit all text elements in three tries');
           }
           const wb = bounds[1].x - bounds[0].x;
           const hb = bounds[1].y - bounds[0].y;
@@ -179,8 +181,8 @@ export class WordCloudController extends DatasetController<WordElement> {
   }
 
   draw(): void {
-    const elements = this._cachedMeta.data;
-    const ctx = this.chart.ctx;
+    const elements = (this._cachedMeta.data as unknown) as VisualElement[];
+    const { ctx } = this.chart;
     elements.forEach((elem) => elem.draw(ctx));
   }
 
@@ -194,8 +196,8 @@ export class WordCloudController extends DatasetController<WordElement> {
 
 export interface IWordCloudControllerDatasetOptions
   extends ControllerDatasetOptions,
-    ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext>,
-    ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext> {
+    ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext<'wordCloud'>>,
+    ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext<'wordCloud'>> {
   /**
    * whether to fit the word cloud to the map, by scaling to the actual bounds
    * @default true
@@ -206,9 +208,10 @@ export interface IWordCloudControllerDatasetOptions
 declare module 'chart.js' {
   interface ChartTypeRegistry {
     wordCloud: {
-      chartOptions: CoreChartOptions;
+      chartOptions: CoreChartOptions<'wordCloud'>;
       datasetOptions: IWordCloudControllerDatasetOptions;
       defaultDataPoint: number[];
+      parsedDataType: { x: number };
       scales: keyof CartesianScaleTypeRegistry;
     };
   }

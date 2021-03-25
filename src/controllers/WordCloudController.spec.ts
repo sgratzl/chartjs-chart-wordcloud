@@ -1,6 +1,6 @@
 /// <reference types="jest" />
-import { WordCloudController } from './WordCloudController';
 import { registry } from 'chart.js';
+import { WordCloudController } from './WordCloudController';
 import { WordElement } from '../elements';
 import createChart from '../__tests__/createChart';
 

@@ -1,5 +1,5 @@
-import { WordCloudController } from './controllers';
 import { registry } from 'chart.js';
+import { WordCloudController } from './controllers';
 import { WordElement } from './elements';
 
 export * from '.';
