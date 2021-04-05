@@ -7,8 +7,6 @@ import {
   ControllerDatasetOptions,
   CommonHoverOptions,
   ChartConfiguration,
-  CartesianScaleTypeRegistry,
-  CoreChartOptions,
   ScriptableContext,
   VisualElement,
 } from 'chart.js';

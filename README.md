@@ -4,14 +4,14 @@
 
 Chart.js module for charting word or tag clouds. Adding new chart type: `wordCloud`.
 
-**Works only with Chart.js >= 3.0.0-alpha.2**
+**Works only with Chart.js >= 3.0.0**
 
 ![word cloud example](https://user-images.githubusercontent.com/4129778/88903326-cbb55a80-d253-11ea-9fb3-ecca1e1ef67f.png)
 
 ## Install
 
 ```bash
-npm install --save chart.js@next chartjs-chart-wordcloud@next
+npm install --save chart.js chartjs-chart-wordcloud
 ```
 
 ## Usage
