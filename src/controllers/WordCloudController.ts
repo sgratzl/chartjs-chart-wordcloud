@@ -81,7 +81,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     this.rand = rnd(this.chart.id);
     const meta = this._cachedMeta;
 
-    const elems = ((meta.data || []) as unknown) as WordElement[];
+    const elems = (meta.data || []) as unknown as WordElement[];
     this.updateElements(elems, 0, elems.length, mode);
   }
 
@@ -96,7 +96,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
 
     const words: (ICloudWord & Record<string, unknown>)[] = [];
     for (let i = start; i < start + count; i += 1) {
-      const o = (this.resolveDataElementOptions(i, mode) as unknown) as IWordElementOptions;
+      const o = this.resolveDataElementOptions(i, mode) as unknown as IWordElementOptions;
       if (o.rotate == null) {
         o.rotate = WordElement.computeRotation(o, this.rand);
       }
@@ -166,7 +166,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   }
 
   draw(): void {
-    const elements = (this._cachedMeta.data as unknown) as VisualElement[];
+    const elements = this._cachedMeta.data as unknown as VisualElement[];
     const { ctx } = this.chart;
     elements.forEach((elem) => elem.draw(ctx));
   }

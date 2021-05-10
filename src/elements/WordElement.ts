@@ -58,7 +58,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     padding: 1,
     weight: 'normal',
     size: (ctx) => {
-      const v = ((ctx.parsed as unknown) as { y: number }).y;
+      const v = (ctx.parsed as unknown as { y: number }).y;
       return v;
     },
     hoverColor: '#ababab',
