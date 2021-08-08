@@ -196,6 +196,7 @@ declare module 'chart.js' {
       chartOptions: CoreChartOptions<'wordCloud'>;
       datasetOptions: IWordCloudControllerDatasetOptions;
       defaultDataPoint: number[];
+      metaExtensions: Record<string, never>;
       parsedDataType: { x: number };
       scales: keyof CartesianScaleTypeRegistry;
     };

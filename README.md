@@ -112,8 +112,6 @@ yarn lint
 yarn fix
 yarn build
 yarn docs
-yarn release
-yarn release:pre
 ```
 
 [mit-image]: https://img.shields.io/badge/License-MIT-yellow.svg
