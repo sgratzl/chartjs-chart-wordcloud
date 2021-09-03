@@ -97,10 +97,8 @@ new WordCloudChart(ctx, {
 
 ```sh
 npm i -g yarn
-yarn set version 2
-cat .yarnrc_patch.yml >> .yarnrc.yml
-yarn
-yarn pnpify --sdk vscode
+yarn install
+yarn sdks vscode
 ```
 
 ### Common commands
