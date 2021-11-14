@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample</title>
+    <script src="https://unpkg.com/chart.js@3.6.0/dist/chart.js"></script>
+    <script src="../build/index.umd.js"></script>
+  </head>
+
+  <body>
+    <div id="container" style="width: 960px; height: 600px; border: 1px solid black">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      window.onload = () => {
+        const words = [
+          { key: 'word', value: 10 },
+          { key: 'words', value: 8 },
+          { key: 'sprite', value: 7 },
+          { key: 'placed', value: 5 },
+        ];
+        const data = {
+          labels: words.map((d) => d.key),
+          links: words.map((d) => 'https://' + d.key + '.test'),
+          datasets: [
+            {
+              label: '',
+              data: words.map((d) => 10 + d.value * 10),
+            },
+          ],
+        };
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        window.myBar = new Chart(ctx, {
+          type: 'wordCloud',
+          data: data,
+          options: {
+            title: {
+              display: false,
+              text: 'Chart.js Word Cloud',
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+          },
+        });
+        canvas.onclick = function(evt) {
+          var points = window.myBar.getElementsAtEventForMode(evt, 'nearest', {
+            intersect: true
+          }, true);
+          let index = points[0].index;
+          let url = data.links[index];
+          window.open(url);
+        }
+      };
+    </script>
+  </body>
+</html>
