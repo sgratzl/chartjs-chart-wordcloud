@@ -3,6 +3,10 @@ import { toFont } from 'chart.js/helpers';
 
 export interface IWordElementOptions extends FontSpec, Record<string, unknown> {
   color: string;
+  /**
+   * CanvasContext2D.strokeStyle config for rendering a stroke around the text
+   * @default undefined
+   */
   strokeStyle: string;
   /**
    * rotation of the word
@@ -32,10 +36,27 @@ export interface IWordElementOptions extends FontSpec, Record<string, unknown> {
 }
 
 export interface IWordElementHoverOptions {
+  /**
+   * hover variant of color
+   */
   hoverColor: string;
-  hoverSize: number;
-  hoverStyle: string;
-  hoverWeight: string;
+  /**
+   * hover variant of size
+   */
+  hoverSize: FontSpec['size'];
+  /**
+   * hover variant of style
+   */
+  hoverStyle: FontSpec['style'];
+  /**
+   * hover variant of weight
+   */
+  hoverWeight: FontSpec['weight'];
+  /**
+   * hover variant of stroke style
+   * @default undefined
+   */
+  hoverStrokeStyle: string;
 }
 
 export interface IWordElementProps {
