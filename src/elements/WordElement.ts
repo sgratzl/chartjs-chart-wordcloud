@@ -56,7 +56,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     maxRotation: 0,
     rotationSteps: 2,
     padding: 1,
-    weight: 'normal',
+    strokeStyle: undefined,
     size: (ctx) => {
       const v = (ctx.parsed as unknown as { y: number }).y;
       return v;
@@ -67,6 +67,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   static readonly defaultRoutes = {
     color: 'color',
     family: 'font.family',
+    style: 'font.style',
+    weight: 'font.weight',
+    lineHeight: 'font.lineHeight',
   };
 
   static computeRotation(o: IWordElementOptions, rnd: () => number): number {
