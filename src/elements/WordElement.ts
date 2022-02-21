@@ -155,3 +155,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     ctx.restore();
   }
 }
+
+declare module 'chart.js' {
+  export interface ElementOptionsByType<TType extends ChartType> {
+    word: ScriptableAndArrayOptions<IWordElementOptions & IWordElementHoverOptions, ScriptableContext<TType>>;
+  }
+}
