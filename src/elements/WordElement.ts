@@ -3,6 +3,10 @@ import { toFont } from 'chart.js/helpers';
 
 export interface IWordElementOptions extends FontSpec, Record<string, unknown> {
   color: string;
+  /**
+   * CanvasContext2D.strokeStyle config for rendering a stroke around the text
+   * @default undefined
+   */
   strokeStyle: string;
   /**
    * rotation of the word
@@ -32,10 +36,27 @@ export interface IWordElementOptions extends FontSpec, Record<string, unknown> {
 }
 
 export interface IWordElementHoverOptions {
+  /**
+   * hover variant of color
+   */
   hoverColor: string;
-  hoverSize: number;
-  hoverStyle: string;
-  hoverWeight: string;
+  /**
+   * hover variant of size
+   */
+  hoverSize: FontSpec['size'];
+  /**
+   * hover variant of style
+   */
+  hoverStyle: FontSpec['style'];
+  /**
+   * hover variant of weight
+   */
+  hoverWeight: FontSpec['weight'];
+  /**
+   * hover variant of stroke style
+   * @default undefined
+   */
+  hoverStrokeStyle: string;
 }
 
 export interface IWordElementProps {
@@ -56,7 +77,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     maxRotation: 0,
     rotationSteps: 2,
     padding: 1,
-    weight: 'normal',
+    strokeStyle: undefined,
     size: (ctx) => {
       const v = (ctx.parsed as unknown as { y: number }).y;
       return v;
@@ -67,6 +88,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   static readonly defaultRoutes = {
     color: 'color',
     family: 'font.family',
+    style: 'font.style',
+    weight: 'font.weight',
+    lineHeight: 'font.lineHeight',
   };
 
   static computeRotation(o: IWordElementOptions, rnd: () => number): number {
@@ -129,5 +153,11 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     ctx.fillText(props.text, 0, 0);
 
     ctx.restore();
+  }
+}
+
+declare module 'chart.js' {
+  export interface ElementOptionsByType<TType extends ChartType> {
+    word: ScriptableAndArrayOptions<IWordElementOptions & IWordElementHoverOptions, ScriptableContext<TType>>;
   }
 }
