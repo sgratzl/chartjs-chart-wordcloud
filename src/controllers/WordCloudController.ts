@@ -183,8 +183,8 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
 export interface IWordCloudControllerDatasetOptions
   extends ControllerDatasetOptions,
     ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext<'wordCloud'>>,
-  ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext<'wordCloud'>>,
-  AnimationOptions<'wordCloud'> {
+    ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext<'wordCloud'>>,
+    AnimationOptions<'wordCloud'> {
   /**
    * whether to fit the word cloud to the map, by scaling to the actual bounds
    * @default true
