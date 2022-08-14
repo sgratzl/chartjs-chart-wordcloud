@@ -55,7 +55,11 @@ export default (options) => {
     external: (v) => isDependency(v) || isPeerDependency(v),
     plugins: [
       typescript(),
-      resolve(),
+      resolve({
+        mainFields: ['module', 'main'],
+        extensions: ['.mjs', '.cjs', '.js', '.jsx', '.json', '.node'],
+        modulesOnly: true,
+      }),
       commonjs(),
       replace({
         preventAssignment: true,
