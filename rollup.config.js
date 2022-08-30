@@ -58,7 +58,7 @@ export default (options) => {
       resolve({
         mainFields: ['module', 'main'],
         extensions: ['.mjs', '.cjs', '.js', '.jsx', '.json', '.node'],
-        modulesOnly: true,
+        // modulesOnly: true,
       }),
       commonjs(),
       replace({
