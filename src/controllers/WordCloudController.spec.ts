@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-import { registry } from 'chart.js';
+import { LinearScale, registry } from 'chart.js';
 import { WordCloudController } from './WordCloudController';
 import { WordElement } from '../elements';
 import createChart from '../__tests__/createChart';
@@ -8,6 +8,7 @@ describe('default', () => {
   beforeAll(() => {
     registry.addControllers(WordCloudController);
     registry.addElements(WordElement);
+    registry.addScales(LinearScale);
   });
   test('default', () => {
     const words = ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'];

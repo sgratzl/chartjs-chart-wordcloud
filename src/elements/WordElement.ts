@@ -1,4 +1,4 @@
-import { Element, FontSpec, VisualElement, ScriptableAndArrayOptions, ScriptableContext } from 'chart.js';
+import { Element, FontSpec, VisualElement, ScriptableAndArrayOptions, ScriptableContext, ChartType } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 
 export interface IWordElementOptions extends FontSpec, Record<string, unknown> {
