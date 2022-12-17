@@ -10,6 +10,8 @@ import {
   ChartConfiguration,
   ScriptableContext,
   VisualElement,
+  CartesianScaleTypeRegistry,
+  CoreChartOptions,
 } from 'chart.js';
 import { toFont } from 'chart.js/helpers';
 import layout from 'd3-cloud';
