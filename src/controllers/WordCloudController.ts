@@ -33,8 +33,14 @@ interface ICloudWord extends IWordElementProps {
 }
 
 export class WordCloudController extends DatasetController<'wordCloud', WordElement> {
+  /**
+   * @internal
+   */
   static readonly id = 'wordCloud';
 
+  /**
+   * @internal
+   */
   static readonly defaults = {
     datasets: {
       fit: true,
@@ -51,6 +57,9 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     dataElementType: WordElement.id,
   };
 
+  /**
+   * @internal
+   */
   static readonly overrides = {
     scales: {
       x: {
@@ -77,8 +86,14 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     .fontStyle((d) => d.options.style)
     .fontWeight((d) => d.options.weight ?? 1);
 
+  /**
+   * @internal
+   */
   rand: () => number = Math.random;
 
+  /**
+   * @internal
+   */
   update(mode: UpdateMode): void {
     super.update(mode);
     this.rand = rnd(this.chart.id);
@@ -88,6 +103,9 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     this.updateElements(elems, 0, elems.length, mode);
   }
 
+  /**
+   * @internal
+   */
   updateElements(elems: WordElement[], start: number, count: number, mode: UpdateMode): void {
     this.wordLayout.stop();
     const xScale = this._cachedMeta.xScale as { left: number; right: number };
@@ -168,12 +186,18 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     run();
   }
 
+  /**
+   * @internal
+   */
   draw(): void {
     const elements = this._cachedMeta.data as unknown as VisualElement[];
     const { ctx } = this.chart;
     elements.forEach((elem) => elem.draw(ctx));
   }
 
+  /**
+   * @internal
+   */
   getLabelAndValue(index: number): { label: string; value: any } {
     const r = super.getLabelAndValue(index);
     const labels = this.chart.data.labels as string[];
@@ -199,7 +223,7 @@ declare module 'chart.js' {
     wordCloud: {
       chartOptions: CoreChartOptions<'wordCloud'>;
       datasetOptions: IWordCloudControllerDatasetOptions;
-      defaultDataPoint: number[];
+      defaultDataPoint: number;
       metaExtensions: Record<string, never>;
       parsedDataType: { x: number };
       scales: keyof CartesianScaleTypeRegistry;

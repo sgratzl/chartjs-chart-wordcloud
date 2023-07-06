@@ -69,8 +69,14 @@ export interface IWordElementProps {
 }
 
 export class WordElement extends Element<IWordElementProps, IWordElementOptions> implements VisualElement {
+  /**
+   * @internal
+   */
   static readonly id = 'word';
 
+  /**
+   * @internal
+   */
   static readonly defaults: any = /* #__PURE__ */ {
     // rotate: 0,
     minRotation: -90,
@@ -85,6 +91,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     hoverColor: '#ababab',
   } as Partial<ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext<'wordCloud'>>>;
 
+  /**
+   * @internal
+   */
   static readonly defaultRoutes = {
     color: 'color',
     family: 'font.family',
@@ -93,6 +102,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     lineHeight: 'font.lineHeight',
   };
 
+  /**
+   * @internal
+   */
   static computeRotation(o: IWordElementOptions, rnd: () => number): number {
     if (o.rotationSteps <= 1) {
       return 0;
@@ -105,6 +117,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     return o.minRotation + base * range;
   }
 
+  /**
+   * @internal
+   */
   inRange(mouseX: number, mouseY: number): boolean {
     const p = this.getProps(['x', 'y', 'width', 'height', 'scale']);
     if (p.scale <= 0) {
@@ -115,22 +130,37 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     return x >= p.x - p.width / 2 && x <= p.x + p.width / 2 && y >= p.y - p.height / 2 && y <= p.y + p.height / 2;
   }
 
+  /**
+   * @internal
+   */
   inXRange(mouseX: number): boolean {
     return this.inRange(mouseX, Number.NaN);
   }
 
+  /**
+   * @internal
+   */
   inYRange(mouseY: number): boolean {
     return this.inRange(Number.NaN, mouseY);
   }
 
+  /**
+   * @internal
+   */
   getCenterPoint(): { x: number; y: number } {
     return this.getProps(['x', 'y']);
   }
 
+  /**
+   * @internal
+   */
   tooltipPosition(): { x: number; y: number } {
     return this.getCenterPoint();
   }
 
+  /**
+   * @internal
+   */
   draw(ctx: CanvasRenderingContext2D): void {
     const { options } = this;
     const props = this.getProps(['x', 'y', 'width', 'height', 'text', 'scale']);
