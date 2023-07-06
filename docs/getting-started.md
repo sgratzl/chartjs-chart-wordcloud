@@ -46,4 +46,3 @@ A word has the basic FontSpec styling options (family, color, ...). In addition 
 
 Controller options: [IWordControllerOptions](/api/interfaces/interface.IWordCloudControllerDatasetOptions.html)
 Word element options: [IWordElementOptions](/api/interfaces/interface.IWordElementOptions.html)
-
