@@ -26,7 +26,7 @@ npm install --save chart.js chartjs-chart-wordcloud
 
 ## Usage
 
-see [Samples](https://github.com/sgratzl/chartjs-chart-wordcloud/tree/main/samples) on Github
+see [Examples](https://www.sgratzl.com/chartjs-chart-wordcloud/examples/)
 
 or at this [![Open in CodePen][codepen]](https://codepen.io/sgratzl/pen/WNwzYgy)
 
