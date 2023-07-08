@@ -33,9 +33,6 @@ interface ICloudWord extends IWordElementProps {
 }
 
 export class WordCloudController extends DatasetController<'wordCloud', WordElement> {
-  /**
-   * @internal
-   */
   static readonly id = 'wordCloud';
 
   /**
