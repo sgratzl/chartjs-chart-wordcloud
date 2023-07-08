@@ -69,9 +69,6 @@ export interface IWordElementProps {
 }
 
 export class WordElement extends Element<IWordElementProps, IWordElementOptions> implements VisualElement {
-  /**
-   * @internal
-   */
   static readonly id = 'word';
 
   /**
