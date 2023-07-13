@@ -36,7 +36,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   static readonly id = 'wordCloud';
 
   /**
-   * @internal
+   * @hidden
    */
   static readonly defaults = {
     datasets: {
@@ -55,7 +55,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   };
 
   /**
-   * @internal
+   * @hidden
    */
   static readonly overrides = {
     scales: {
@@ -84,12 +84,12 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     .fontWeight((d) => d.options.weight ?? 1);
 
   /**
-   * @internal
+   * @hidden
    */
   rand: () => number = Math.random;
 
   /**
-   * @internal
+   * @hidden
    */
   update(mode: UpdateMode): void {
     super.update(mode);
@@ -101,7 +101,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   }
 
   /**
-   * @internal
+   * @hidden
    */
   updateElements(elems: WordElement[], start: number, count: number, mode: UpdateMode): void {
     this.wordLayout.stop();
@@ -184,7 +184,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   }
 
   /**
-   * @internal
+   * @hidden
    */
   draw(): void {
     const elements = this._cachedMeta.data as unknown as VisualElement[];
@@ -193,7 +193,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   }
 
   /**
-   * @internal
+   * @hidden
    */
   getLabelAndValue(index: number): { label: string; value: any } {
     const r = super.getLabelAndValue(index);
