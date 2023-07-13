@@ -72,7 +72,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   static readonly id = 'word';
 
   /**
-   * @internal
+   * @hidden
    */
   static readonly defaults: any = /* #__PURE__ */ {
     // rotate: 0,
@@ -89,7 +89,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   } as Partial<ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext<'wordCloud'>>>;
 
   /**
-   * @internal
+   * @hidden
    */
   static readonly defaultRoutes = {
     color: 'color',
@@ -100,7 +100,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   };
 
   /**
-   * @internal
+   * @hidden
    */
   static computeRotation(o: IWordElementOptions, rnd: () => number): number {
     if (o.rotationSteps <= 1) {
@@ -115,7 +115,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   }
 
   /**
-   * @internal
+   * @hidden
    */
   inRange(mouseX: number, mouseY: number): boolean {
     const p = this.getProps(['x', 'y', 'width', 'height', 'scale']);
@@ -128,35 +128,35 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   }
 
   /**
-   * @internal
+   * @hidden
    */
   inXRange(mouseX: number): boolean {
     return this.inRange(mouseX, Number.NaN);
   }
 
   /**
-   * @internal
+   * @hidden
    */
   inYRange(mouseY: number): boolean {
     return this.inRange(Number.NaN, mouseY);
   }
 
   /**
-   * @internal
+   * @hidden
    */
   getCenterPoint(): { x: number; y: number } {
     return this.getProps(['x', 'y']);
   }
 
   /**
-   * @internal
+   * @hidden
    */
   tooltipPosition(): { x: number; y: number } {
     return this.getCenterPoint();
   }
 
   /**
-   * @internal
+   * @hidden
    */
   draw(ctx: CanvasRenderingContext2D): void {
     const { options } = this;
