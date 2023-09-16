@@ -23,7 +23,7 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Examples',
-        items: [{ text: 'Basic', link: '/examples/' }],
+        items: [{ text: 'Basic', link: '/examples/' }, { text: 'Stroke', link: '/examples/stroke' }],
       },
       {
         text: 'API',
