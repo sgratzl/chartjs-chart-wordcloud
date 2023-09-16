@@ -2,12 +2,17 @@ import { Element, FontSpec, VisualElement, ScriptableAndArrayOptions, Scriptable
 import { toFont } from 'chart.js/helpers';
 
 export interface IWordElementOptions extends FontSpec, Record<string, unknown> {
-  color: string;
+  color: CanvasRenderingContext2D['fillStyle'];
   /**
    * CanvasContext2D.strokeStyle config for rendering a stroke around the text
    * @default undefined
    */
-  strokeStyle: string;
+  strokeStyle: CanvasRenderingContext2D['strokeStyle'];
+  /**
+   * CanvasContext2D.lineWith for stroke
+   * @default undefined
+   */
+  strokeWidth?: CanvasRenderingContext2D['lineWidth'];
   /**
    * rotation of the word
    * @default undefined then it will be randomly derived given the other constraints
@@ -39,7 +44,7 @@ export interface IWordElementHoverOptions {
   /**
    * hover variant of color
    */
-  hoverColor: string;
+  hoverColor: CanvasRenderingContext2D['fillStyle'];
   /**
    * hover variant of size
    */
@@ -56,7 +61,12 @@ export interface IWordElementHoverOptions {
    * hover variant of stroke style
    * @default undefined
    */
-  hoverStrokeStyle: string;
+  hoverStrokeStyle: CanvasRenderingContext2D['strokeStyle'];
+  /**
+   * hover variant of stroke width
+   * @default undefined
+   */
+  hoverStrokeWidth?: CanvasRenderingContext2D['lineWidth'];
 }
 
 export interface IWordElementProps {
@@ -81,6 +91,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     rotationSteps: 2,
     padding: 1,
     strokeStyle: undefined,
+    strokeWidth: undefined,
     size: (ctx) => {
       const v = (ctx.parsed as unknown as { y: number }).y;
       return v;
@@ -174,6 +185,9 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     // ctx.strokeRect(-props.width / 2, -props.height / 2, props.width, props.height);
     ctx.rotate((options.rotate / 180) * Math.PI);
     if (options.strokeStyle) {
+      if (options.strokeWidth != null) {
+        ctx.lineWidth = options.strokeWidth;
+      }
       ctx.strokeStyle = options.strokeStyle;
       ctx.strokeText(props.text, 0, 0);
     }

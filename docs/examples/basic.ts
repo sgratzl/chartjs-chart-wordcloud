@@ -225,3 +225,18 @@ export const config: ChartConfiguration<'wordCloud'> = {
   data,
 };
 // #endregion config
+
+// #region stroke
+export const stroke: ChartConfiguration<'wordCloud'> = {
+  type: 'wordCloud',
+  data,
+  options: {
+    elements: {
+      word: {
+        strokeStyle: 'red',
+        strokeWidth: 8,
+      },
+    },
+  },
+};
+// #endregion stroke
