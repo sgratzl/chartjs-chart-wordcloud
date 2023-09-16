@@ -33,7 +33,7 @@ export interface ChartHelper<TYPE extends ChartType, DATA extends unknown[] = De
 export default function createChart<
   TYPE extends ChartType,
   DATA extends unknown[] = DefaultDataPoint<TYPE>,
-  LABEL = string
+  LABEL = string,
 >(config: ChartConfiguration<TYPE, DATA, LABEL>, width = 300, height = 300): ChartHelper<TYPE, DATA, LABEL> {
   const canvas = document.createElement('canvas');
   canvas.width = width;
