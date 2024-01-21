@@ -44,5 +44,5 @@ const config = {
 
 A word has the basic FontSpec styling options (family, color, ...). In addition it has several options regarding rotating the text.
 
-Controller options: [IWordControllerOptions](/api/interfaces/interface.IWordCloudControllerDatasetOptions.html)
-Word element options: [IWordElementOptions](/api/interfaces/interface.IWordElementOptions.html)
+Controller options: [IWordControllerOptions](/api/interfaces/IWordCloudControllerDatasetOptions.html)
+Word element options: [IWordElementOptions](/api/interfaces/IWordElementOptions.html)
