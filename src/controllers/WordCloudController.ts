@@ -38,9 +38,8 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   /**
    * @hidden
    */
-  static readonly defaults = {
+  static readonly defaults = /* #__PURE__ */ {
     datasets: {
-      fit: true,
       animation: {
         colors: {
           properties: ['color', 'strokeStyle'],
@@ -57,7 +56,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   /**
    * @hidden
    */
-  static readonly overrides = {
+  static readonly overrides = /* #__PURE__ */ {
     scales: {
       x: {
         type: 'linear',
@@ -210,7 +209,7 @@ export interface IWordCloudControllerDatasetOptions
     AnimationOptions<'wordCloud'> {
   /**
    * whether to fit the word cloud to the map, by scaling to the actual bounds
-   * @default true
+   * @default false
    */
   fit: boolean;
 }
