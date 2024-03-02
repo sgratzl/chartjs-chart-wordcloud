@@ -102,7 +102,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
   /**
    * @hidden
    */
-  static readonly defaultRoutes = {
+  static readonly defaultRoutes = /* #__PURE__ */ {
     color: 'color',
     family: 'font.family',
     style: 'font.style',
