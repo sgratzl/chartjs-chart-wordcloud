@@ -38,9 +38,8 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   /**
    * @hidden
    */
-  static readonly defaults = {
+  static readonly defaults = /* #__PURE__ */ {
     datasets: {
-      fit: true,
       animation: {
         colors: {
           properties: ['color', 'strokeStyle'],
@@ -57,7 +56,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   /**
    * @hidden
    */
-  static readonly overrides = {
+  static readonly overrides = /* #__PURE__ */ {
     scales: {
       x: {
         type: 'linear',
@@ -93,7 +92,8 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
    */
   update(mode: UpdateMode): void {
     super.update(mode);
-    this.rand = rnd(this.chart.id);
+    const dsOptions = (this as any).options as IWordCloudControllerDatasetOptions;
+    this.rand = rnd(dsOptions.randomRotationSeed ?? this.chart.id);
     const meta = this._cachedMeta;
 
     const elems = (meta.data || []) as unknown as WordElement[];
@@ -105,12 +105,20 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
    */
   updateElements(elems: WordElement[], start: number, count: number, mode: UpdateMode): void {
     this.wordLayout.stop();
+    const dsOptions = (this as any).options as IWordCloudControllerDatasetOptions;
     const xScale = this._cachedMeta.xScale as { left: number; right: number };
     const yScale = this._cachedMeta.yScale as { top: number; bottom: number };
 
     const w = xScale.right - xScale.left;
     const h = yScale.bottom - yScale.top;
     const labels = this.chart.data.labels as string[];
+
+    const growOptions: IAutoGrowOptions = {
+      maxTries: 3,
+      scalingFactor: 1.2,
+    };
+    // update with configured options
+    Object.assign(growOptions, dsOptions?.autoGrow ?? {});
 
     const words: (ICloudWord & Record<string, unknown>)[] = [];
     for (let i = start; i < start + count; i += 1) {
@@ -139,14 +147,18 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
     // syncish since no time limit is set
     this.wordLayout.random(this.rand).words(words);
 
-    const run = (factor = 1, tries = 3): void => {
+    const run = (factor = 1, tries = growOptions.maxTries): void => {
       this.wordLayout
         .size([w * factor, h * factor])
         .on('end', (tags, bounds) => {
           if (tags.length < labels.length) {
             if (tries > 0) {
               // try again with a factor of 1.2
-              run(factor * 1.2, tries - 1);
+              const f =
+                typeof growOptions.scalingFactor === 'function'
+                  ? growOptions.scalingFactor(factor, tags, labels.length)
+                  : factor * growOptions.scalingFactor;
+              run(f, tries - 1);
               return;
             }
             // eslint-disable-next-line no-console
@@ -155,7 +167,6 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
           const wb = bounds[1].x - bounds[0].x;
           const hb = bounds[1].y - bounds[0].y;
 
-          const dsOptions = (this as any).options as IWordCloudControllerDatasetOptions;
           const scale = dsOptions.fit ? Math.min(w / wb, h / hb) : 1;
           const indices = new Set(labels.map((_, i) => i));
           tags.forEach((tag) => {
@@ -203,6 +214,17 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
   }
 }
 
+export interface IAutoGrowOptions {
+  /**
+   * @default 3
+   */
+  maxTries: number;
+  /**
+   * @default 1.2
+   */
+  scalingFactor: number | ((currentFactor: number, fitted: ICloudWord[], total: number) => number);
+}
+
 export interface IWordCloudControllerDatasetOptions
   extends ControllerDatasetOptions,
     ScriptableAndArrayOptions<IWordElementOptions, ScriptableContext<'wordCloud'>>,
@@ -210,9 +232,21 @@ export interface IWordCloudControllerDatasetOptions
     AnimationOptions<'wordCloud'> {
   /**
    * whether to fit the word cloud to the map, by scaling to the actual bounds
-   * @default true
+   * @default false
    */
   fit: boolean;
+
+  /**
+   * configures the automatic growing of the canvas in case not all words can be fitted onto the screen
+   * @default { maxTries: 3, scalingFactor: 1.2}
+   */
+  autoGrow: IAutoGrowOptions;
+
+  /**
+   * specifies the random seed that should be used for randomly rotating words if needed
+   * @default the current chart id
+   */
+  randomRotationSeed: string;
 }
 
 declare module 'chart.js' {
