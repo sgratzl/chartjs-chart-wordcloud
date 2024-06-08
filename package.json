@@ -1,7 +1,7 @@
 {
   "name": "chartjs-chart-wordcloud",
   "description": "Chart.js module for word clouds",
-  "version": "4.4.0",
+  "version": "4.4.1",
   "author": {
     "name": "Samuel Gratzl",
     "email": "sam@sgratzl.com",
