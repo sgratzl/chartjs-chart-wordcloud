@@ -162,7 +162,7 @@ export class WordCloudController extends DatasetController<'wordCloud', WordElem
               return;
             }
             // eslint-disable-next-line no-console
-            console.warn('cannot fit all text elements in three tries');
+            console.warn(`cannot fit all text elements in ${growOptions.maxTries} tries`);
           }
           const wb = bounds[1].x - bounds[0].x;
           const hb = bounds[1].y - bounds[0].y;
