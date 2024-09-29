@@ -178,6 +178,7 @@ export class WordElement extends Element<IWordElementProps, IWordElementOptions>
     ctx.save();
     const f = toFont({ ...options, size: options.size * props.scale });
     ctx.font = f.string;
+    // console.log(ctx.font);
     ctx.fillStyle = options.color;
     ctx.textAlign = 'center';
     // ctx.textBaseline = 'top';
