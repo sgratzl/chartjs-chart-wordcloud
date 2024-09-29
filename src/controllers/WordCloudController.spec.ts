@@ -17,6 +17,7 @@ describe('default', () => {
         {
           label: '',
           data: words.map((_, i) => 10 + (i / words.length) * 90),
+          randomRotationSeed: 'x',
         },
       ],
     };
