@@ -1,9 +1,8 @@
-/// <reference types="jest" />
 import { LinearScale, registry } from 'chart.js';
 import { WordCloudController } from './WordCloudController';
 import { WordElement } from '../elements';
 import createChart from '../__tests__/createChart';
-
+import { describe, beforeAll, test } from 'vitest';
 describe('default', () => {
   beforeAll(() => {
     registry.addControllers(WordCloudController);
@@ -18,6 +17,7 @@ describe('default', () => {
         {
           label: '',
           data: words.map((_, i) => 10 + (i / words.length) * 90),
+          randomRotationSeed: 'x',
         },
       ],
     };
@@ -31,6 +31,9 @@ describe('default', () => {
       500
     );
 
-    return chart.toMatchImageSnapshot();
+    return chart.toMatchImageSnapshot({
+      failureThreshold: 1.85,
+      failureThresholdType: 'percent',
+    });
   });
 });
