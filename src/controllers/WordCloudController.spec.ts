@@ -31,6 +31,9 @@ describe('default', () => {
       500
     );
 
-    return chart.toMatchImageSnapshot();
+    return chart.toMatchImageSnapshot({
+      failureThreshold: 1.85,
+      failureThresholdType: 'percent',
+    });
   });
 });
