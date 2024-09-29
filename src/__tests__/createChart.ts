@@ -38,7 +38,7 @@ export default function createChart<
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  Object.assign(defaults.font, { family: 'Courier New' });
+  Object.assign(defaults.font, { family: "'Courier New', sans-serif" });
   // defaults.color = 'transparent';
 
   config.options = {
