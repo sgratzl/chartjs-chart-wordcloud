@@ -1,9 +1,8 @@
-/// <reference types="jest" />
 import { LinearScale, registry } from 'chart.js';
 import { WordCloudController } from './WordCloudController';
 import { WordElement } from '../elements';
 import createChart from '../__tests__/createChart';
-
+import { describe, beforeAll, test } from 'vitest';
 describe('default', () => {
   beforeAll(() => {
     registry.addControllers(WordCloudController);
